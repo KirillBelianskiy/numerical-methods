@@ -1,4 +1,7 @@
-def multiply(A, B):
+def multiply(
+        A: list,
+        B: list
+) -> list:
     if not A or not B:
         raise ValueError("A and B must not be empty")
 
@@ -35,13 +38,17 @@ def multiply(A, B):
 
     return C
 
-def eye(size: int) -> list[list[float]]:
+
+def eye(
+        size: int
+) -> list[list[float]]:
     matrix = [[0.0] * size for _ in range(size)]
 
     for i in range(size):
         matrix[i][i] = 1.0
 
     return matrix
+
 
 def is_matrices_equal(
         A: list[list[float]],
@@ -61,12 +68,15 @@ def is_matrices_equal(
 
     return True
 
-def read_dense_matrix(filename: str) -> list[list[float]]:
+
+def read_dense_matrix(
+        filename: str
+) -> list[list[float]]:
     with open(filename, 'r') as f:
         m, n = map(int, f.readline().split())
         matrix = []
         for i in range(m):
-                matrix.append(list(map(float, f.readline().split())))
+            matrix.append(list(map(float, f.readline().split())))
 
         if m != len(matrix):
             raise ValueError("Matrix has wrong count of strings")
@@ -78,7 +88,10 @@ def read_dense_matrix(filename: str) -> list[list[float]]:
 
         return matrix
 
-def pmprint(matrix: list[list[float]]) -> str:
+
+def pmprint(
+        matrix: list[list[float]]
+) -> str:
     lines = ['[']
 
     for row in matrix:
@@ -88,6 +101,7 @@ def pmprint(matrix: list[list[float]]) -> str:
     lines.append(']')
 
     return '\n'.join(lines)
+
 
 def read_sparse_matrix(param):
     pass

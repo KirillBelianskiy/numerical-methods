@@ -3,7 +3,10 @@ from matrix_processing import multiply, eye, is_matrices_equal
 from copy import deepcopy
 
 
-def find_max_non_zero_elem(matrix: list[list[float]], index: int) -> int | None:
+def find_max_non_zero_elem(
+        matrix: list[list[float]],
+        index: int
+) -> int:
     max_index = index
     for i in range(index + 1, len(matrix)):
         if abs(matrix[i][index]) > abs(matrix[max_index][index]):
@@ -12,7 +15,9 @@ def find_max_non_zero_elem(matrix: list[list[float]], index: int) -> int | None:
     return max_index
 
 
-def LU_decomposition(matrix: list[list[float]]) -> tuple[list, list, list, int]:
+def LU_decomposition(
+        matrix: list[list[float]]
+) -> tuple[list, list, list, int]:
     shape = len(matrix)
 
     P = eye(shape)
