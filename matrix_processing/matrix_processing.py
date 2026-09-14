@@ -1,3 +1,6 @@
+from typing import Any
+
+
 def multiply(
         A: list,
         B: list
@@ -103,5 +106,18 @@ def pmprint(
     return '\n'.join(lines)
 
 
-def read_sparse_matrix(param):
-    pass
+def read_sparse_matrix(
+        filename: str
+) -> tuple[list[float], list[float], list[float], list[float]]:
+    with open(filename, 'r') as f:
+        n = int(f.readline())
+
+        a = list(map(float, f.readline().split()))
+        b = list(map(float, f.readline().split()))
+        c = list(map(float, f.readline().split()))
+        d = list(map(float, f.readline().split()))
+
+        if len(a) != n - 1 or len(b) != n or len(c) != n - 1 or len(d) != n:
+            raise ValueError("Matrix has wrong count of elements")
+
+        return a, b, c, d
