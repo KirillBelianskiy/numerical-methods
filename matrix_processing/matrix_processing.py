@@ -1,6 +1,3 @@
-from typing import Any
-
-
 def multiply(
         A: list,
         B: list

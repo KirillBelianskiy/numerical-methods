@@ -1,13 +1,62 @@
 from matrix_processing import read_dense_matrix
 
 
+def jacobi_iteration_matrix_norm(A: list[list[float]]) -> float:
+    n = len(A)
+
+    alpha = [
+        [
+            0 if i == j else -A[i][j] / A[i][i]
+            for j in range(n)
+        ]
+        for i in range(n)
+    ]
+
+    return max(
+        sum(abs(alpha[i][j]) for j in range(n))
+        for i in range(n)
+    )
+
+def gauss_seidel_iteration_matrix_norm(A: list[list[float]]) -> float:
+    n = len(A)
+
+    alpha = [
+        [
+            0 if i == j else -A[i][j] / A[i][i]
+            for j in range(n)
+        ]
+        for i in range(n)
+    ]
+
+    B = [[0.0] * n for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            value = alpha[i][j] if j > i else 0.0
+
+            for k in range(i):
+                value += alpha[i][k] * B[k][j]
+
+            B[i][j] = value
+
+    return max(
+        sum(abs(B[i][j]) for j in range(n))
+        for i in range(n)
+    )
+
+
 def fixed_point_iteration(
         A: list[list[float]],
         b: list[float],
         eps: float,
         max_iterations: int
-) -> list[float]:
+) -> tuple[list[float], int]:
     n = len(b)
+
+    q = jacobi_iteration_matrix_norm(A)
+
+    if q >= 1:
+        raise ValueError("||alpha|| >= 1, convergence is not guaranteed")
 
     x_last = [0] * n
     x_new = [0] * n
@@ -18,12 +67,18 @@ def fixed_point_iteration(
 
         k += 1
 
-        if max(abs(x_new[i] - x_last[i]) for i in range(n)) < eps:
-            break
+        diff = max(abs(x_new[i] - x_last[i]) for i in range(n))
+
+        if q < 1:
+            if q / (1 - q) * diff < eps:
+                break
+        else:
+            if diff < eps:
+                break
 
         x_last = x_new.copy()
 
-    return x_new
+    return x_new, k
 
 
 def gauss_seidel(
@@ -31,8 +86,13 @@ def gauss_seidel(
         b: list[float],
         eps: float,
         max_iterations: int
-) -> list[float]:
+) -> tuple[list[float], int]:
     n = len(b)
+
+    q = gauss_seidel_iteration_matrix_norm(A)
+
+    if q >= 1:
+        raise ValueError("||alpha|| >= 1, convergence is not guaranteed")
 
     x_last = [0] * n
     x_new = [0] * n
@@ -40,19 +100,25 @@ def gauss_seidel(
     while k < max_iterations:
         for i in range(n):
             x_new[i] = (
-                   b[i] -
-                   sum(A[i][j] * x_new[j] for j in range(i)) -
-                   sum(A[i][j] * x_last[j] for j in range(i + 1, n))
+                               b[i] -
+                               sum(A[i][j] * x_new[j] for j in range(i)) -
+                               sum(A[i][j] * x_last[j] for j in range(i + 1, n))
                        ) / A[i][i]
 
         k += 1
 
-        if max(abs(x_new[i] - x_last[i]) for i in range(n)) < eps:
-            break
+        diff = max(abs(x_new[i] - x_last[i]) for i in range(n))
+
+        if q < 1:
+            if q / (1 - q) * diff < eps:
+                break
+        else:
+            if diff < eps:
+                break
 
         x_last = x_new.copy()
 
-    return x_new
+    return x_new, k
 
 
 def main() -> None:
@@ -60,9 +126,15 @@ def main() -> None:
     b = [x[-1] for x in A]
     A = [x[:-1] for x in A]
 
-    x_fpi = fixed_point_iteration(A, b, eps=1e-6, max_iterations=100)
-    x_gs = gauss_seidel(A, b, eps=1e-6, max_iterations=100)
-    print(x_fpi, x_gs, sep='\n\n')
+    eps = 0.01
+    x_fpi, k_fpi = fixed_point_iteration(A, b, eps=eps, max_iterations=1000)
+    x_gs, k_gs = gauss_seidel(A, b, eps=eps, max_iterations=1000)
+    print("Accuracy", eps)
+    print("Fixed point iterations:", k_fpi)
+    print(x_fpi)
+    print("Gauss-Seidel iterations:", k_gs)
+    print(x_gs)
+    print("Reference solution", [8, 4, 3, 9])
 
 
 if __name__ == '__main__':

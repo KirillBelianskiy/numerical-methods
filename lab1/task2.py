@@ -1,4 +1,4 @@
-from matrix_processing import read_sparse_matrix
+from matrix_processing import read_sparse_matrix, pmprint
 
 
 def sweep(
@@ -6,7 +6,7 @@ def sweep(
         b: list[float],
         c: list[float],
         d: list[float]
-) -> list[float]:
+) -> tuple[list[float], list[float], list[float]]:
     n = len(d)
 
     P = [0.0] * n
@@ -32,13 +32,15 @@ def sweep(
     for i in range(n - 2, -1, -1):
         x[i] = P[i] * x[i + 1] + Q[i]
 
-    return x
+    return P, Q, x
 
 
 def main() -> None:
     a, b, c, d = read_sparse_matrix('../input/task2.txt')
-    x = sweep(a, b, c, d)
-    print(x)
+    P, Q, x = sweep(a, b, c, d)
+    print("P:", P)
+    print("Q:", Q)
+    print("x:", x)
 
 
 if __name__ == "__main__":
