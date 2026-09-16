@@ -17,6 +17,7 @@ def jacobi_iteration_matrix_norm(A: list[list[float]]) -> float:
         for i in range(n)
     )
 
+
 def gauss_seidel_iteration_matrix_norm(A: list[list[float]]) -> float:
     n = len(A)
 
@@ -55,9 +56,6 @@ def fixed_point_iteration(
 
     q = jacobi_iteration_matrix_norm(A)
 
-    if q >= 1:
-        raise ValueError("||alpha|| >= 1, convergence is not guaranteed")
-
     x_last = [0] * n
     x_new = [0] * n
     k = 0
@@ -90,9 +88,6 @@ def gauss_seidel(
     n = len(b)
 
     q = gauss_seidel_iteration_matrix_norm(A)
-
-    if q >= 1:
-        raise ValueError("||alpha|| >= 1, convergence is not guaranteed")
 
     x_last = [0] * n
     x_new = [0] * n

@@ -1,6 +1,7 @@
 from matrix_processing import read_dense_matrix, pmprint
 from matrix_processing import multiply, eye, is_matrices_equal
 from copy import deepcopy
+import fractions
 
 
 def find_max_non_zero_elem(
