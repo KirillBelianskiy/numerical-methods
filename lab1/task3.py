@@ -1,7 +1,9 @@
-from matrix_processing import read_dense_matrix
+from matrix_processing import read_dense_matrix, Matrix, Vector
 
 
-def jacobi_iteration_matrix_norm(A: list[list[float]]) -> float:
+def jacobi_iteration_matrix_norm(
+        A: Matrix
+) -> float:
     n = len(A)
 
     alpha = [
@@ -18,7 +20,9 @@ def jacobi_iteration_matrix_norm(A: list[list[float]]) -> float:
     )
 
 
-def gauss_seidel_iteration_matrix_norm(A: list[list[float]]) -> float:
+def gauss_seidel_iteration_matrix_norm(
+        A: Matrix
+) -> float:
     n = len(A)
 
     alpha = [
@@ -47,11 +51,11 @@ def gauss_seidel_iteration_matrix_norm(A: list[list[float]]) -> float:
 
 
 def fixed_point_iteration(
-        A: list[list[float]],
-        b: list[float],
+        A: Matrix,
+        b: Vector,
         eps: float,
         max_iterations: int
-) -> tuple[list[float], int]:
+) -> tuple[Vector, int]:
     n = len(b)
 
     q = jacobi_iteration_matrix_norm(A)
@@ -80,11 +84,11 @@ def fixed_point_iteration(
 
 
 def gauss_seidel(
-        A: list[list[float]],
-        b: list[float],
+        A: Matrix,
+        b: Vector,
         eps: float,
         max_iterations: int
-) -> tuple[list[float], int]:
+) -> tuple[Vector, int]:
     n = len(b)
 
     q = gauss_seidel_iteration_matrix_norm(A)

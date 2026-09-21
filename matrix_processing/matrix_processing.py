@@ -1,6 +1,8 @@
+from matrix_processing import Matrix, Vector
+
 def multiply(
-        A: list,
-        B: list
+        A: Matrix,
+        B: Matrix
 ) -> list:
     if not A or not B:
         raise ValueError("A and B must not be empty")
@@ -40,8 +42,8 @@ def multiply(
 
 
 def T(
-        A: list[list[float]]
-) -> list[list[float]]:
+        A: Matrix
+) -> Matrix:
     n = len(A)
     m = len(A[0])
     new_A = [[0 for _ in range(n)] for _ in range(m)]
@@ -54,7 +56,7 @@ def T(
 
 def eye(
         size: int
-) -> list[list[float]]:
+) -> Matrix:
     matrix = [[0.0] * size for _ in range(size)]
 
     for i in range(size):
@@ -64,8 +66,8 @@ def eye(
 
 
 def is_matrices_equal(
-        A: list[list[float]],
-        B: list[list[float]],
+        A: Matrix,
+        B: Matrix,
         eps: float = 1e-9
 ) -> bool:
     if len(A) != len(B):
@@ -84,7 +86,7 @@ def is_matrices_equal(
 
 def read_dense_matrix(
         filename: str
-) -> list[list[float]]:
+) -> Matrix:
     with open(filename, 'r') as f:
         m, n = map(int, f.readline().split())
         matrix = []
@@ -103,7 +105,7 @@ def read_dense_matrix(
 
 
 def pmprint(
-        matrix: list[list[float]]
+        matrix: Matrix
 ) -> str:
     lines = ['[']
 
@@ -118,7 +120,7 @@ def pmprint(
 
 def read_sparse_matrix(
         filename: str
-) -> tuple[list[float], list[float], list[float], list[float]]:
+) -> tuple[Vector, Vector, Vector, Vector]:
     with open(filename, 'r') as f:
         n = int(f.readline())
 

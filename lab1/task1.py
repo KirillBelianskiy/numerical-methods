@@ -1,11 +1,10 @@
-from matrix_processing import read_dense_matrix, pmprint
+from matrix_processing import read_dense_matrix, pmprint, Matrix, Vector
 from matrix_processing import multiply, eye, is_matrices_equal
 from copy import deepcopy
-import fractions
 
 
 def find_max_non_zero_elem(
-        matrix: list[list[float]],
+        matrix: Matrix,
         index: int
 ) -> int:
     max_index = index
@@ -17,8 +16,8 @@ def find_max_non_zero_elem(
 
 
 def LU_decomposition(
-        matrix: list[list[float]]
-) -> tuple[list, list, list, int]:
+        matrix: Matrix
+) -> tuple[Matrix, Matrix, Matrix, int]:
     shape = len(matrix)
 
     P = eye(shape)
@@ -52,7 +51,7 @@ def LU_decomposition(
 
 
 def find_determinant(
-        U: list[list[float]],
+        U: Matrix,
         swap_count: int
 ) -> float:
     det = 1
@@ -67,10 +66,10 @@ def find_determinant(
 
 
 def find_inverse_matrix(
-        P: list[list[float]],
-        L: list[list[float]],
-        U: list[list[float]]
-) -> list[list[float]]:
+        P: Matrix,
+        L: Matrix,
+        U: Matrix
+) -> Matrix:
     shape = len(P)
 
     inverse = [[0] * shape for _ in range(shape)]
@@ -88,10 +87,10 @@ def find_inverse_matrix(
 
 
 def gauss(
-        P: list[list[float]],
-        L: list[list[float]],
-        U: list[list[float]],
-        b: list[float]
+        P: Matrix,
+        L: Matrix,
+        U: Matrix,
+        b: Vector
 ) -> list[float]:
     shape = len(P)
 

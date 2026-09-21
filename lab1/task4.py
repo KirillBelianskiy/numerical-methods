@@ -1,11 +1,11 @@
 from copy import deepcopy
 from math import atan, sin, cos, pi
 
-from matrix_processing import eye, T, multiply, read_dense_matrix, pmprint
+from matrix_processing import eye, T, multiply, read_dense_matrix, pmprint, is_matrices_equal, Matrix
 
 
 def max_upper_triangular(
-        matrix: list[list[float]]
+        matrix: Matrix
 ) -> tuple[float, float]:
     n = len(matrix)
     max_elem = matrix[0][1]
@@ -21,7 +21,7 @@ def max_upper_triangular(
 
 
 def t(
-        matrix: list[list[float]]
+        matrix: Matrix
 ) -> float:
     n = len(matrix)
 
@@ -34,10 +34,10 @@ def t(
 
 
 def jacobi(
-        matrix: list[list[float]],
+        matrix: Matrix,
         eps: float,
         max_iteration: int,
-) -> tuple[list[list[float | int]], list[list[float | int]]]:
+) -> tuple[Matrix, Matrix]:
     n = len(matrix)
     A = deepcopy(matrix)
     k = 0
@@ -84,6 +84,7 @@ def main() -> None:
     print("A:", pmprint(matrix))
     print("Eigenvalues:", [A[i][i] for i in range(len(A))])
     print("Eigenvectors:", pmprint(U))
+    print("A · V == V · Λ: ", is_matrices_equal(multiply(matrix, U), multiply(U, A)))
 
 
 if __name__ == '__main__':

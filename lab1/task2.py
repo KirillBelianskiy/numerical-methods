@@ -1,12 +1,12 @@
-from matrix_processing import read_sparse_matrix, pmprint
+from matrix_processing import read_sparse_matrix, Vector
 
 
 def sweep(
-        a: list[float],
-        b: list[float],
-        c: list[float],
-        d: list[float]
-) -> tuple[list[float], list[float], list[float]]:
+        a: Vector,
+        b: Vector,
+        c: Vector,
+        d: Vector
+) -> tuple[Vector, Vector, Vector]:
     n = len(d)
 
     P = [0.0] * n
