@@ -25,7 +25,7 @@ def multiply(
 
     shape_B = len(B), len(B[0])
 
-    if shape_A[0] != shape_B[1]:
+    if shape_A[1] != shape_B[0]:
         raise ValueError('The dimensions are incompatible:\n',
                          f'A = {shape_A[0]}x{shape_A[1]}\nB = {shape_B[0]}x{shape_B[1]}')
 
@@ -37,6 +37,19 @@ def multiply(
                 C[i][j] += A[i][k] * B[k][j]
 
     return C
+
+
+def T(
+        A: list[list[float]]
+) -> list[list[float]]:
+    n = len(A)
+    m = len(A[0])
+    new_A = [[0 for _ in range(n)] for _ in range(m)]
+    for i in range(m):
+        for j in range(n):
+            new_A[j][i] = A[i][j]
+
+    return new_A
 
 
 def eye(
