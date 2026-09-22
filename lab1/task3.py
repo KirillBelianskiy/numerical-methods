@@ -1,7 +1,7 @@
 from matrix_processing import read_dense_matrix, Matrix, Vector
 
 
-def jacobi_iteration_matrix_norm(
+def norm(
         A: Matrix
 ) -> float:
     n = len(A)
@@ -20,36 +20,6 @@ def jacobi_iteration_matrix_norm(
     )
 
 
-def gauss_seidel_iteration_matrix_norm(
-        A: Matrix
-) -> float:
-    n = len(A)
-
-    alpha = [
-        [
-            0 if i == j else -A[i][j] / A[i][i]
-            for j in range(n)
-        ]
-        for i in range(n)
-    ]
-
-    B = [[0.0] * n for _ in range(n)]
-
-    for i in range(n):
-        for j in range(n):
-            value = alpha[i][j] if j > i else 0.0
-
-            for k in range(i):
-                value += alpha[i][k] * B[k][j]
-
-            B[i][j] = value
-
-    return max(
-        sum(abs(B[i][j]) for j in range(n))
-        for i in range(n)
-    )
-
-
 def fixed_point_iteration(
         A: Matrix,
         b: Vector,
@@ -58,7 +28,7 @@ def fixed_point_iteration(
 ) -> tuple[Vector, int]:
     n = len(b)
 
-    q = jacobi_iteration_matrix_norm(A)
+    q = norm(A)
 
     x_last = [0] * n
     x_new = [0] * n
@@ -91,7 +61,7 @@ def gauss_seidel(
 ) -> tuple[Vector, int]:
     n = len(b)
 
-    q = gauss_seidel_iteration_matrix_norm(A)
+    q = norm(A)
 
     x_last = [0] * n
     x_new = [0] * n

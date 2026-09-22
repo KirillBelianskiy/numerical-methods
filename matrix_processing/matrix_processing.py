@@ -1,4 +1,4 @@
-from matrix_processing import Matrix, Vector
+from matrix_processing.type_aliases import Matrix, Vector
 
 def multiply(
         A: Matrix,
