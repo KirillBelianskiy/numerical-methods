@@ -176,8 +176,9 @@ def main() -> None:
     print("QR iterations:", iterations)
 
     complex_matrix = [
-        [1.0, -1.0],
-        [1.0, 1.0]
+        [2, -4, 5],
+        [-5, -2, -3],
+        [1, -8, -3]
     ]
     complex_eigenvalues, _ = find_eigenvalues(complex_matrix, eps, 10000)
 

@@ -76,7 +76,8 @@ def gauss_seidel(
 
         k += 1
 
-        diff = max(abs(x_new[i] - x_last[i]) for i in range(n))
+        diff = max(abs(x_new[i] - x_last[i]) for i
+                   in range(n))
 
         if q < 1:
             if q / (1 - q) * diff < eps:
