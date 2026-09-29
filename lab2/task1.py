@@ -1,4 +1,4 @@
-from math import isfinite, log, sqrt
+from math import log, sqrt
 
 
 def f(
@@ -35,9 +35,7 @@ def simple_iteration(
     history = [x0]
     for _ in range(max_iterations):
         x_new = phi(history[-1])
-        if not isfinite(x_new):
-            print("Simple iteration method diverged")
-            return history
+
         history.append(x_new)
 
         if q / (1 - q) * abs(x_new - history[-2]) <= eps:

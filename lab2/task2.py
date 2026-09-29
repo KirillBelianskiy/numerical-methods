@@ -1,4 +1,4 @@
-from math import isfinite, sqrt
+from math import sqrt
 
 
 def f1(
@@ -43,9 +43,6 @@ def simple_iteration(
     for _ in range(max_iterations):
 
         x_new = phi(*history[-1])
-        if not all(isfinite(value) for value in x_new):
-            print("Simple iteration method diverged")
-            return history
 
         history.append(x_new)
 
@@ -78,10 +75,6 @@ def newton(
         dx1 = (-first * j22 + j12 * second) / determinant
         dx2 = (first * j21 - j11 * second) / determinant
         x_new = (x1 + dx1, x2 + dx2)
-
-        if not all(isfinite(value) for value in x_new):
-            print("Newton method diverged")
-            return history
 
         history.append(x_new)
 
