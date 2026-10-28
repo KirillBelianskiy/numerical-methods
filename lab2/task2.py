@@ -119,7 +119,7 @@ def print_errors(
 
 def main() -> None:
     x0 = (2.9, 0.7)
-    eps = 0.01
+    eps = 0.001
     q = max(0.4 / sqrt(4 - 0.4 ** 2), 16 * 2.8 / (2.8 ** 2 + 4) ** 2)
 
     reference = reference_solution()
