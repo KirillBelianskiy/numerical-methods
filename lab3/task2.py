@@ -1,9 +1,3 @@
-import sys
-from pathlib import Path
-
-if __package__ is None or __package__ == "":
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
 from lab1.task2 import sweep
 
 
@@ -14,7 +8,6 @@ def cubic_spline(
     n = len(x_values) - 1
     h = [x_values[i + 1] - x_values[i] for i in range(n)]
 
-    # c[i] соответствует c_(i+1) учебника; c[0] = c[n] = 0.
     c = [0.0] * (n + 1)
     if n > 1:
         lower = h[1:-1]

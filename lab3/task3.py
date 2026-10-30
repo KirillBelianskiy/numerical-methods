@@ -1,9 +1,3 @@
-import sys
-from pathlib import Path
-
-if __package__ is None or __package__ == "":
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
 from lab1.task1 import LU_decomposition, gauss
 from matrix_processing import Matrix, Vector
 
@@ -13,11 +7,6 @@ def normal_system(
         y_values: Vector,
         n: int
 ) -> tuple[Matrix, Vector]:
-    if len(x_values) != len(y_values) or not 0 <= n < len(x_values):
-        raise ValueError("Degree must be smaller than the number of paired nodes")
-    if len(set(x_values)) <= n:
-        raise ValueError("Not enough distinct nodes")
-
     A = [
         [sum(x ** (k + i) for x in x_values) for i in range(n + 1)]
         for k in range(n + 1)
@@ -66,8 +55,6 @@ def MSE(
         y_values: Vector,
         a: Vector
 ) -> float:
-    if not x_values or len(x_values) != len(y_values):
-        raise ValueError("Non-empty paired nodes are required")
 
     return Phi(x_values, y_values, a) / len(x_values)
 

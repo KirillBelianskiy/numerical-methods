@@ -12,12 +12,8 @@ def integration_nodes(
         b: float,
         h: float
 ) -> list[float]:
-    if h <= 0 or a >= b:
-        raise ValueError("A positive step and a < b are required")
 
     n = round((b - a) / h)
-    if n < 1 or not isclose(n * h, b - a, rel_tol=1e-12, abs_tol=1e-12):
-        raise ValueError("Step must divide the integration interval")
 
     return [a + i * h for i in range(n)] + [b]
 
@@ -81,8 +77,6 @@ def simpson(
 ) -> float:
     x_values = integration_nodes(a, b, h)
     n = len(x_values) - 1
-    if n % 2:
-        raise ValueError("Simpson's method requires an even number of intervals")
 
     F = f(a) + f(b)
     for i in range(1, n):
@@ -97,8 +91,6 @@ def runge_romberg(
         k: float,
         p: int
 ) -> tuple[float, float]:
-    if k <= 1 or p <= 0:
-        raise ValueError("Step ratio must exceed one and order must be positive")
 
     correction = (F_h - F_kh) / (k ** p - 1)
     F = F_h + correction
