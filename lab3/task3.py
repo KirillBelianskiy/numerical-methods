@@ -68,16 +68,16 @@ def main() -> None:
         a = least_squares(x_values, y_values, n)
 
         print(f"\nDegree: {n}")
-        print("a:", a)
-        print(f"P_{n}(x) = " + " ".join(f"{ai:+.10f} * x^{i}" for i, ai in enumerate(a)))
-        print(f"Phi = {Phi(x_values, y_values, a):.12f}")
+        print("a:", [round(value, 9) for value in a])
+        print(f"P_{n}(x) = " + " + ".join(f"{round(ai, 9)} * x^{i}" for i, ai in enumerate(a)))
+        print(f"Phi = {round(Phi(x_values, y_values, a), 9)}")
         error = MSE(x_values, y_values, a)
         errors.append(error)
 
     best = errors.index(min(errors)) + 1
     print("\nComparison of MSE over all input points:")
     for n, error in enumerate(errors, start=1):
-        print(f"P_{n}: MSE{n} = {error:.12e}")
+        print(f"P_{n}: MSE{n} = {format(error, ".9f").rstrip("0").rstrip(".")}")
     print(f"Best approximation by MSE: P_{best}(x), degree {best}")
 
 

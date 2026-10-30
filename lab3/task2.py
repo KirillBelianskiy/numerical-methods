@@ -79,34 +79,34 @@ def main() -> None:
     S = spline_value(x_test, x_values, coefficients)
 
     print("Initial nodes:")
-    print(" i          x_i             y_i")
+    print(" i x_i y_i")
     for i, (x, y) in enumerate(zip(x_values, y_values)):
-        print(f"{i:2d}  {x:12.8f}  {y:14.10f}")
+        print(f"{i}  {round(x, 9)}  {round(y, 9)}")
 
-    print(" i       [x_(i-1), x_i]              a_i             b_i             c_i             d_i")
+    print(" i [x_(i-1), x_i] a_i b_i c_i d_i")
     for i, (a, b, c, d) in enumerate(coefficients):
         print(
-            f"{i + 1:2d}  [{x_values[i]:7.3f}, {x_values[i + 1]:7.3f}]"
-            f"  {a:14.10f}  {b:14.10f}  {c:14.10f}  {d:14.10f}"
+            f"{i + 1}  [{round(x_values[i], 9)}, {round(x_values[i + 1], 9)}]"
+            f"  {round(a, 9)}  {round(b, 9)}  {round(c, 9)}  {round(d, 9)}"
         )
 
     print("S_i(x) = a_i + b_i(x - x_(i-1)) + c_i(x - x_(i-1))^2 + d_i(x - x_(i-1))^3")
-    print(f"S({x_test}) = {S:.10f}")
+    print(f"S({x_test}) = {round(S, 9)}")
     i = spline_interval(x_test, x_values)
     print(f"Interval containing x*: {i + 1}, [{x_values[i]}, {x_values[i + 1]}]")
 
     eps = 1e-9
     print("\nInterpolation check:")
-    print(" x_i            y_i          S(x_i)             error       passed")
+    print(" x_i y_i S(x_i) error passed")
     for x, y in zip(x_values, y_values):
         value = spline_value(x, x_values, coefficients)
         error = abs(value - y)
-        print(f"{x:5.2f}  {y:14.10f}  {value:14.10f}  {error:14.6e}  {error <= eps}")
+        print(f"{round(x, 9)}  {round(y, 9)}  {round(value, 9)}  {format(error, ".9f").rstrip("0").rstrip(".")}  {error <= eps}")
 
     left = spline_second_derivative(x_values[0], x_values, coefficients)
     right = spline_second_derivative(x_values[-1], x_values, coefficients)
-    print(f"S''(x_0) = {left:.12e}, passed: {abs(left) <= eps}")
-    print(f"S''(x_n) = {right:.12e}, passed: {abs(right) <= eps}")
+    print(f"S''(x_0) = {round(left, 9)}, passed: {abs(left) <= eps}")
+    print(f"S''(x_n) = {round(right, 9)}, passed: {abs(right) <= eps}")
 
 
 if __name__ == '__main__':

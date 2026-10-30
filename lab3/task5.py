@@ -111,10 +111,10 @@ def main() -> None:
     reference = antiderivative(b) - antiderivative(a)
 
     print(f"Interval: [{a}, {b}], h1 = {h1}, h2 = {h2}")
-    print(f"Reference integral: {reference:.12f}")
+    print(f"Reference integral: {round(reference, 9)}")
     print(
-        "Method                      F_h1             F_h2   p          F_Runge"
-        "            R_h2        error_h1        error_h2     error_Runge"
+        "Method F_h1 F_h2 p F_Runge"
+        " R_h2 error_h1 error_h2 error_Runge"
     )
     results = []
     for name, method, p in (
@@ -132,8 +132,8 @@ def main() -> None:
         error_Runge = abs(F - reference)
         results.append((name, error_h1, error_h2, error_Runge))
         print(
-            f"{name:18s}  {F_kh:16.12f}  {F_h:16.12f}  {p:2d}  {F:16.12f}"
-            f"  {R:14.6e}  {error_h1:14.6e}  {error_h2:14.6e}  {error_Runge:14.6e}"
+            f"{name}  {round(F_kh, 9)}  {round(F_h, 9)}  {p}  {round(F, 9)}"
+            f"  {format(R, ".9f").rstrip("0").rstrip(".")}  {format(error_h1, ".9f").rstrip("0").rstrip(".")}  {format(error_h2, ".9f").rstrip("0").rstrip(".")}  {format(error_Runge, ".9f").rstrip("0").rstrip(".")}"
         )
 
     for column, label in ((1, "h1"), (2, "h2"), (3, "Runge-Romberg")):
@@ -141,7 +141,7 @@ def main() -> None:
         for result in results[1:]:
             if result[column] < best[column]:
                 best = result
-        print(f"Best method ({label}): {best[0]}, error = {best[column]:.6e}")
+        print(f"Best method ({label}): {best[0]}, error = {format(best[column], ".9f").rstrip("0").rstrip(".")}")
 
 
 if __name__ == '__main__':

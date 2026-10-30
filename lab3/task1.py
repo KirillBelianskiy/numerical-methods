@@ -123,7 +123,7 @@ def main() -> None:
         print(f"\nNodes {name}")
         print("Initial nodes and values:")
         for i, (xi, yi) in enumerate(zip(x_values, y_values)):
-            print(f"  x_{i} = {xi:.10f}, y_{i} = {yi:.10f}")
+            print(f"  x_{i} = {round(xi, 9)}, y_{i} = {round(yi, 9)}")
 
         lagrange_terms = []
         for i, yi in enumerate(y_values):
@@ -131,35 +131,35 @@ def main() -> None:
                 x_values[i] - x_values[j] for j in range(count) if j != i
             )
             factors = " * ".join(
-                f"(x - {x_values[j]:.10f})" for j in range(count) if j != i
+                f"(x - {round(x_values[j], 9)})" for j in range(count) if j != i
             )
-            lagrange_terms.append(f"{yi / denominator:+.10f} * {factors}")
+            lagrange_terms.append(f"{round(yi / denominator, 9)} * {factors}")
 
         print("\nLagrange polynomial:")
-        print("  L(x) = " + " ".join(lagrange_terms))
+        print("  L(x) = " + " + ".join(lagrange_terms))
 
         print("\nDivided differences:")
         print("i x_i f[x_i] differences")
         for i in range(count):
-            row = [value for value in table[i] if value is not None]
-            print(i, x_values[i], row)
+            row = [round(value, 9) for value in table[i] if value is not None]
+            print(i, round(x_values[i], 9), row)
 
-        newton_terms = [f"{coefficients[0]:.10f}"]
+        newton_terms = [f"{round(coefficients[0], 9)}"]
         for order in range(1, count):
-            factors = " * ".join(f"(x - {xi:.10f})" for xi in x_values[:order])
-            newton_terms.append(f"{coefficients[order]:+.10f} * {factors}")
+            factors = " * ".join(f"(x - {round(xi, 9)})" for xi in x_values[:order])
+            newton_terms.append(f"{round(coefficients[order], 9)} * {factors}")
 
         print("\nNewton polynomial:")
-        print("  P(x) = " + " ".join(newton_terms))
+        print("  P(x) = " + " + ".join(newton_terms))
 
-        print(f"\nx* = {x_test:.10f}:")
-        print(f"  L(x*) = {L_n:.12f}")
-        print(f"  P(x*) = {P_n:.12f}")
-        print(f"  f(x*) = {actual:.12f}")
-        print(f"  |f(x*) - L(x*)| = {abs(actual - L_n):.12e}")
-        print(f"  |f(x*) - P(x*)| = {abs(actual - P_n):.12e}")
-        print(f"  |L(x*) - P(x*)| = {abs(L_n - P_n):.12e}")
-        print(f"  Error bound = {upper_estimate(x_test, x_values):.12e}")
+        print(f"\nx* = {round(x_test, 9)}:")
+        print(f"  L(x*) = {round(L_n, 9)}")
+        print(f"  P(x*) = {round(P_n, 9)}")
+        print(f"  f(x*) = {round(actual, 9)}")
+        print(f"  |f(x*) - L(x*)| = {round(abs(actual - L_n), 9)}")
+        print(f"  |f(x*) - P(x*)| = {round(abs(actual - P_n), 9)}")
+        print(f"  |L(x*) - P(x*)| = {round(abs(L_n - P_n), 9)}")
+        print(f"  Error bound = {round(upper_estimate(x_test, x_values), 9)}")
 
 
 if __name__ == "__main__":

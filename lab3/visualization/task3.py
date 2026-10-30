@@ -14,7 +14,7 @@ def main() -> None:
     for n in (1, 2, 3):
         a = least_squares(x_values, y_values, n)
         values = [F_n(x, a) for x in grid]
-        plt.plot(grid, values, label=f'P_{n}(x), MSE{n} = {MSE(x_values, y_values, a):.6e}')
+        plt.plot(grid, values, label=f'P_{n}(x), MSE{n} = {format(MSE(x_values, y_values, a), ".9f").rstrip("0").rstrip(".")}')
 
     plt.title('3.3. Least squares')
     plt.xlabel('x')

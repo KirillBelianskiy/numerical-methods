@@ -35,17 +35,17 @@ def main() -> None:
     df, d2f = derivatives(x_test, x_values, y_values, i)
 
     print("Initial table:")
-    print(" i          x_i             y_i")
+    print(" i x_i y_i")
     for j, (x, y) in enumerate(zip(x_values, y_values)):
-        print(f"{j:2d}  {x:12.8f}  {y:14.10f}")
+        print(f"{j}  {round(x, 9)}  {round(y, 9)}")
     print(f"x* = {x_test}")
     print("Selected node indices:", list(range(i, i + 3)))
     print("Selected values:", y_values[i:i + 3])
     print("Selected nodes:", x_values[i:i + 3])
-    print(f"Left secant slope: {left:.10f}")
-    print(f"Right secant slope: {right:.10f}")
-    print(f"y'({x_test}) = {df:.10f}")
-    print(f"y''({x_test}) = {d2f:.10f}")
+    print(f"Left secant slope: {round(left, 9)}")
+    print(f"Right secant slope: {round(right, 9)}")
+    print(f"y'({x_test}) = {round(df, 9)}")
+    print(f"y''({x_test}) = {round(d2f, 9)}")
 
 
 if __name__ == '__main__':

@@ -16,9 +16,9 @@ def main() -> None:
         grid = np.linspace(x_values[i], x_values[i + 1], 100)
         dx = grid - x_values[i]
         S = a + b * dx + c * dx ** 2 + d * dx ** 3
-        plt.plot(grid, S, label=f'S_{i + 1}(x), [{x_values[i]:g}, {x_values[i + 1]:g}]')
+        plt.plot(grid, S, label=f'S_{i + 1}(x), [{round(x_values[i], 9)}, {round(x_values[i + 1], 9)}]')
     plt.scatter(x_values, y_values, label='Nodes', zorder=4)
-    plt.scatter([x_test], [result], label=f'S(1.5) = {result:.6f}', zorder=5)
+    plt.scatter([x_test], [result], label=f'S(1.5) = {round(result, 9)}', zorder=5)
     plt.title('3.2. Natural cubic spline')
     plt.xlabel('x')
     plt.ylabel('y')
