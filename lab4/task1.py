@@ -95,7 +95,7 @@ def main() -> None:
     for name, method, p in (
             ("Euler", euler, 1),
             ("Runge-Kutta 4", runge_kutta, 4),
-            ("Adams 4", adams, 4)]
+            ("Adams 4", adams, 4)
     ):
         x_values, y_values, _ = method(a, b, h, y0, z0)
         _, fine_y, _ = method(a, b, h / 2, y0, z0)
