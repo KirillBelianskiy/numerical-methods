@@ -65,11 +65,6 @@ def finite_difference(
         diagonal[i] = -2 - h ** 2
         upper[i] = 1 + h / x_values[i]
 
-    # Second-order boundary derivatives:
-    # -3*y[0] + 4*y[1] - y[2] = 0;
-    # y[n-2] - 4*y[n-1] + (3+3*h)*y[n] = 2*h*exp(2).
-    # Eliminate y[2] and y[n-2] using the adjacent interior equations
-    # to retain a tridiagonal system for the sweep method from lab1.
     diagonal[0] = -3 + lower[0] / upper[1]
     upper[0] = 4 + diagonal[1] / upper[1]
     lower[-1] = -4 - diagonal[n - 1] / lower[n - 2]
